@@ -1,7 +1,7 @@
 
-const CardUser = () => {
+const CardUser = ({onBottomScroll}) => {
     return (
-        <div className="flex justify-between mb-5 cursor-pointer">
+        <div onClick={() => onBottomScroll() } className="flex justify-between mb-5 cursor-pointer">
             <div className="flex items-center">
                 <img src="/Avatar.png" alt="" className="mr-4" />
                 <div>
