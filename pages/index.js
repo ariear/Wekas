@@ -4,6 +4,15 @@ import CardUser from "../components/carduser"
 import ProfileChat from "../components/ProfileChat"
 import InputMessage from "../components/InputMessage"
 import CardMessage from "../components/CardMessage"
+import { unAuthpage } from "../middleware/authPage"
+
+export function getServerSideProps(ctx){
+  unAuthpage(ctx)
+
+  return {
+    props: {}
+  }
+}
 
 const Home = () => {
   const [isOpenChat , setIsOpenChat] = useState(false)
