@@ -1,9 +1,12 @@
 import axios from 'axios'
+import { authentication } from "../../firebase/clientApp";
+import { signInWithPopup, GoogleAuthProvider , GithubAuthProvider } from "firebase/auth";
 import Link from 'next/link'
 import Router from 'next/router'
 import { useState } from 'react'
 import Layout from '../../components/Layout'
 import { authpage } from '../../middleware/authPage'
+import Cookies from 'js-cookie';
 
 export function getServerSideProps(ctx){
   authpage(ctx)
@@ -26,6 +29,35 @@ const Register = () => {
       await axios.post('/api/auth/register', fields)
       
       Router.replace('/auth/login')
+    }
+
+    const signWithFirebase = (providername) => {
+      let provider
+      if (providername === 'google') {
+        provider = new GoogleAuthProvider();
+      }else if (providername === 'github') {
+        provider = new GithubAuthProvider();
+      }
+  
+      signInWithPopup(authentication, provider).then(res => {
+
+        if (res._tokenResponse.isNewUser) {
+
+          axios.post('/api/auth/firebase' , {
+            imgprofile: res._tokenResponse.photoUrl,
+            username: res._tokenResponse.displayName,
+            email: res._tokenResponse.email
+          }).then(res => {
+            if (res.status === 200) {
+              Cookies.set('token' , res.data.token)
+
+              Router.replace('/')
+            }
+          })
+
+        }
+
+      }).catch(err => console.log(err) )
     }
 
     return (
@@ -62,8 +94,8 @@ const Register = () => {
             </div>
 
             <div className="flex justify-center mb-10">
-              <button className="bg-[#2D3748] text-lg font-medium rounded-full p-5 mr-3"><img src="/icon/google 1.png" alt="" /></button>
-              <button className="bg-black text-lg font-medium rounded-full p-5"><img src="/icon/github.svg" alt="" /></button>
+              <button onClick={() => signWithFirebase('google')} className="bg-[#2D3748] text-lg font-medium rounded-full p-5 mr-3"><img src="/icon/google 1.png" alt="" /></button>
+              <button onClick={() => signWithFirebase('github')} className="bg-black text-lg font-medium rounded-full p-5"><img src="/icon/github.svg" alt="" /></button>
             </div>
 
             <p className="text-center">Already have an account? <Link href="/auth/login"><a className="text-blue-700">Login here</a></Link></p>
