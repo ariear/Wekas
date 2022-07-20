@@ -20,7 +20,7 @@ const loginApiHandle = async (req, res) => {
             id: getUser._id,
             username: getUser.username,
             email: getUser.email
-        }, 'akusukamilf', {
+        }, process.env.SECRET_OR_PUBLIC_KEY, {
             expiresIn: '30d'
         })
 

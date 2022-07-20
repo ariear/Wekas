@@ -19,7 +19,7 @@ const authFirebaseHandle = async (req ,res) => {
         username,
         email,
         isFirebase : true
-    }, 'akusukamilf' , {
+    }, process.env.SECRET_OR_PUBLIC_KEY , {
         expiresIn: '30d'
     })
 
