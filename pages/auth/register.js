@@ -55,6 +55,18 @@ const Register = () => {
             }
           })
 
+        }else{
+          axios.post('/api/auth/firebase/login' ,{
+            imgprofile: res._tokenResponse.photoUrl,
+            username: res._tokenResponse.displayName,
+            email: res._tokenResponse.email
+          }).then(res => {
+            if (res.status === 200) {
+              Cookies.set('token' , res.data.token)
+              
+              Router.replace('/')
+            }
+          })
         }
 
       }).catch(err => console.log(err) )
