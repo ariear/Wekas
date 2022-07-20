@@ -1,3 +1,5 @@
+import jwt from 'jsonwebtoken'
+
 const unAuthpage = (ctx) => {
     const {token} = ctx.req.cookies
     if (!token) {
@@ -5,6 +7,8 @@ const unAuthpage = (ctx) => {
             location: '/auth/login'
         }).end()
     }
+
+    return jwt.verify(token, process.env.SECRET_OR_PUBLIC_KEY)
 }
 
 const authpage = (ctx) => {

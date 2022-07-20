@@ -7,21 +7,23 @@ import CardMessage from "../components/CardMessage"
 import { unAuthpage } from "../middleware/authPage"
 
 export function getServerSideProps(ctx){
-  unAuthpage(ctx)
-
+  const dataToken =  unAuthpage(ctx)
+  
   return {
-    props: {}
+    props: {
+      dataToken
+    }
   }
 }
 
-const Home = () => {
+const Home = ({dataToken}) => {
   const [isOpenChat , setIsOpenChat] = useState(false)
 
-  const scrollmessage = useRef({})
-
-  const onBottomScroll = async () => {
+  const scrollmessage = useRef(null)
+  
+  const onBottomScroll = () => {
     setIsOpenChat(true)
-    scrollmessage.current.scrollTop = await scrollmessage.current.scrollHeight
+    scrollmessage.current?.scrollIntoView()
   }
 
   return (
@@ -75,10 +77,10 @@ const Home = () => {
 
         <div className="h-[90vh] bg-[url('/bgchat.png')] bg-cover bg-center grow">
           {
-            isOpenChat && 
+            isOpenChat ? 
               <div className="h-full flex flex-col justify-between">
                 <ProfileChat />
-                <div className="grow overflow-auto scrollbar-hide" ref={scrollmessage} >
+                <div className="grow overflow-auto scrollbar-hide" >
                 <div className="flex flex-col justify-end">
                   <CardMessage isClient={true} title="Halo banh bilek" />
                   <CardMessage isClient={false} title="Halo juga orang" />
@@ -92,9 +94,15 @@ const Home = () => {
                   <CardMessage isClient={false} title="Halo juga orang" />
                   <CardMessage isClient={true} title="Halo banh bilek" />
                   <CardMessage isClient={false} title="Halo juga orangdadas" />
+                  <div ref={scrollmessage} ></div>
                 </div>
                 </div>
                 <InputMessage />
+              </div>
+                  :
+              <div className="h-full flex flex-col justify-center items-center text-white">
+                <p className="font-bold text-5xl mb-4">Welcome Back {dataToken.username}👋</p>
+                <p className="font-medium text-xl">let`s chat with wekas app</p>
               </div>
           }
         </div>
