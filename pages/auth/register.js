@@ -75,11 +75,11 @@ const Register = () => {
     return (
       <Layout title="Register" >
         <div className="min-h-screen flex justify-center items-center">
-        <div className="w-[1500px] h-[90vh] bg-[#7C83FD] flex justify-between">
-          <img src="/rider.jpg" className="h-full w-[50%] object-cover object-center" alt="" />
+        <div className="w-[95vw] lg:w-[97vw] xl:w-[1260px] 2xl:w-[1500px] min-h-[90vh] bg-[#7C83FD] flex justify-between">
+          <img src="/rider.jpg" className="min-h-full w-[40%] xl:w-[50%] object-cover object-center md:block hidden" alt="" />
           
           <div className="flex flex-col grow text-white justify-center">
-            <div className="w-[450px] mx-auto">
+            <div className="w-[90%] sm:w-[500px] md:w-[400px] lg:w-[450px] mx-auto">
             <p>Welcome</p>
             <h1 className="text-3xl font-semibold mb-7">Register to create account</h1>
 
