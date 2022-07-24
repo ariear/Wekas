@@ -5,6 +5,10 @@ import ProfileChat from "../components/ProfileChat"
 import InputMessage from "../components/InputMessage"
 import CardMessage from "../components/CardMessage"
 import { unAuthpage } from "../middleware/authPage"
+import { authentication } from "../firebase/clientApp";
+import { signInWithPopup } from "firebase/auth";
+import Cookies from "js-cookie"
+import Router from "next/router"
 
 export function getServerSideProps(ctx){
   const dataToken =  unAuthpage(ctx)
@@ -25,6 +29,14 @@ const Home = ({dataToken}) => {
   const onBottomScroll = () => {
     setIsOpenChat(true)
     scrollmessage.current?.scrollIntoView()
+  }
+
+  const signOutHandle = () => {
+    authentication.signOut().then(() => {
+      Cookies.remove('token')
+
+      Router.replace('/auth/login')
+    })
   }
 
   return (
@@ -81,8 +93,8 @@ const Home = ({dataToken}) => {
                 <p className="text-xl font-medium">{dataToken.username}</p>
               </div>
 
-              <p className="p-3 bg-[#7C83FD] rounded-lg font-medium mb-4">Theme</p>
-              <p className="p-3 bg-[#7C83FD] rounded-lg font-medium">Sign Out</p>
+              <p className="p-3 bg-[#7C83FD] rounded-lg font-medium mb-4 cursor-pointer">Theme</p>
+              <p className="p-3 bg-[#7C83FD] rounded-lg font-medium cursor-pointer" onClick={() => signOutHandle()} >Sign Out</p>
           </div>
 
         </aside>
