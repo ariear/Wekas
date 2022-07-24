@@ -6,9 +6,9 @@ import InputMessage from "../components/InputMessage"
 import CardMessage from "../components/CardMessage"
 import { unAuthpage } from "../middleware/authPage"
 import { authentication } from "../firebase/clientApp";
-import { signInWithPopup } from "firebase/auth";
 import Cookies from "js-cookie"
 import Router from "next/router"
+import LoadingPage from "../components/LoadingPage"
 
 export function getServerSideProps(ctx){
   const dataToken =  unAuthpage(ctx)
@@ -23,6 +23,7 @@ export function getServerSideProps(ctx){
 const Home = ({dataToken}) => {
   const [isOpenChat , setIsOpenChat] = useState(false)
   const [isOpenMenu , setIsOpenMenu] = useState(false)
+  const [isSignOutLoading , setIsSignOutLoading] = useState(false)
 
   const scrollmessage = useRef(null)
   
@@ -32,11 +33,18 @@ const Home = ({dataToken}) => {
   }
 
   const signOutHandle = () => {
+    setIsSignOutLoading(true)
     authentication.signOut().then(() => {
       Cookies.remove('token')
 
       Router.replace('/auth/login')
     })
+  }
+
+  if (isSignOutLoading) {
+    return (
+      <LoadingPage />
+    )
   }
 
   return (
@@ -89,7 +97,7 @@ const Home = ({dataToken}) => {
 
           <div className={isOpenMenu ? 'absolute top-0 left-0 w-full h-full bg-[#533E85] transition-all duration-300 overflow-hidden pt-16 px-5 text-white' : 'absolute top-0 left-0 w-0 h-full bg-[#533E85] transition-all overflow-hidden pt-16'}>
               <div className="flex items-center mb-7">
-                <img src={dataToken.imgprofile} className="w-[55px] rounded-full mr-4" alt="" />
+                <img src={dataToken.imgprofile || '/person.png'} className="w-[55px] rounded-full mr-4" alt="" />
                 <p className="text-xl font-medium">{dataToken.username}</p>
               </div>
 

@@ -7,6 +7,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import Router from "next/router";
 import { authpage } from "../../middleware/authPage";
+import LoadingPage from "../../components/LoadingPage";
   
 export function getServerSideProps(ctx){
   authpage(ctx)
@@ -21,15 +22,19 @@ const Login = () => {
     email: '',
     password: ''
   })
+  const [loadingSignIn, setloadingSignIn ] = useState(false)
 
   const onTraditionalLogin = async (e) => {
     e.preventDefault();
     
+    setloadingSignIn(true)
     const signin = await axios.post('/api/auth/login' , field)
     if (signin.status === 200) {
       Cookies.set('token', signin.data.token)
 
       Router.replace('/')
+    }else{
+      setloadingSignIn(false)
     }
   }
 
@@ -42,6 +47,7 @@ const Login = () => {
     }
 
     signInWithPopup(authentication, provider).then(res => {
+      setloadingSignIn(true)
       if (!res._tokenResponse.isNewUser) {
         axios.post('/api/auth/firebase/login', {
           imgprofile: res._tokenResponse.photoUrl,
@@ -69,6 +75,12 @@ const Login = () => {
       }
 
     }).catch(err => console.log(err) )
+  }
+
+  if (loadingSignIn) {
+    return (
+      <LoadingPage />
+    )
   }
 
     return (

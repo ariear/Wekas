@@ -7,6 +7,7 @@ import { useState } from 'react'
 import Layout from '../../components/Layout'
 import { authpage } from '../../middleware/authPage'
 import Cookies from 'js-cookie';
+import LoadingPage from '../../components/LoadingPage';
 
 export function getServerSideProps(ctx){
   authpage(ctx)
@@ -22,9 +23,11 @@ const Register = () => {
     email: '',
     password: ''
   })
+  const [isLoadingAuth , setIsLoadingAuth] = useState(false)
   
     const onAddUser = async (e) => {
       e.preventDefault();
+      setIsLoadingAuth(true)
       
       await axios.post('/api/auth/register', fields)
       
@@ -40,7 +43,7 @@ const Register = () => {
       }
   
       signInWithPopup(authentication, provider).then(res => {
-
+        setIsLoadingAuth(true)
         if (res._tokenResponse.isNewUser) {
 
           axios.post('/api/auth/firebase' , {
@@ -70,6 +73,12 @@ const Register = () => {
         }
 
       }).catch(err => console.log(err) )
+    }
+
+    if (isLoadingAuth) {
+      return (
+        <LoadingPage />
+      )
     }
 
     return (
