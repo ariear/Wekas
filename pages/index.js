@@ -68,31 +68,6 @@ const Home = ({dataToken}) => {
 
           <div className="h-[83vh] lg:h-[80vh] overflow-auto scrollbar-hide">
             <CardUser setIsOpenChat={setIsOpenChat} onBottomScroll={onBottomScroll} />
-            <CardUser setIsOpenChat={setIsOpenChat} onBottomScroll={onBottomScroll} />
-            <CardUser setIsOpenChat={setIsOpenChat} onBottomScroll={onBottomScroll} />
-            <CardUser setIsOpenChat={setIsOpenChat} onBottomScroll={onBottomScroll} />
-            <CardUser setIsOpenChat={setIsOpenChat} onBottomScroll={onBottomScroll} />
-            <CardUser setIsOpenChat={setIsOpenChat} onBottomScroll={onBottomScroll} />
-            <CardUser setIsOpenChat={setIsOpenChat} onBottomScroll={onBottomScroll} />
-            <CardUser setIsOpenChat={setIsOpenChat} onBottomScroll={onBottomScroll} />
-            <CardUser setIsOpenChat={setIsOpenChat} onBottomScroll={onBottomScroll} />
-            <CardUser setIsOpenChat={setIsOpenChat} onBottomScroll={onBottomScroll} />
-            <CardUser setIsOpenChat={setIsOpenChat} onBottomScroll={onBottomScroll} />
-            <CardUser setIsOpenChat={setIsOpenChat} onBottomScroll={onBottomScroll} />
-            <CardUser setIsOpenChat={setIsOpenChat} onBottomScroll={onBottomScroll} />
-            <CardUser setIsOpenChat={setIsOpenChat} onBottomScroll={onBottomScroll} />
-            <CardUser setIsOpenChat={setIsOpenChat} onBottomScroll={onBottomScroll} />
-            <CardUser setIsOpenChat={setIsOpenChat} onBottomScroll={onBottomScroll} />
-            <CardUser setIsOpenChat={setIsOpenChat} onBottomScroll={onBottomScroll} />
-            <CardUser setIsOpenChat={setIsOpenChat} onBottomScroll={onBottomScroll} />
-            <CardUser setIsOpenChat={setIsOpenChat} onBottomScroll={onBottomScroll} />
-            <CardUser setIsOpenChat={setIsOpenChat} onBottomScroll={onBottomScroll} />
-            <CardUser setIsOpenChat={setIsOpenChat} onBottomScroll={onBottomScroll} />
-            <CardUser setIsOpenChat={setIsOpenChat} onBottomScroll={onBottomScroll} />
-            <CardUser setIsOpenChat={setIsOpenChat} onBottomScroll={onBottomScroll} />
-            <CardUser setIsOpenChat={setIsOpenChat} onBottomScroll={onBottomScroll} />
-            <CardUser setIsOpenChat={setIsOpenChat} onBottomScroll={onBottomScroll} />
-            <CardUser setIsOpenChat={setIsOpenChat} onBottomScroll={onBottomScroll} />
           </div>
 
           <div className={isOpenMenu ? 'absolute top-0 left-0 w-full h-full bg-[#533E85] transition-all duration-300 overflow-hidden pt-16 px-5 text-white' : 'absolute top-0 left-0 w-0 h-full bg-[#533E85] transition-all overflow-hidden pt-16'}>
